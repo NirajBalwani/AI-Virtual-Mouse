@@ -8,7 +8,6 @@ wCam, hCam = 604, 480
 frameR = 100
 smoothening = 7
 
-
 plocX, plocY = 0, 0
 clocX, clocY = 0, 0
 
@@ -40,7 +39,7 @@ while True:
         cv2.rectangle(img, (frameR, frameR), (wCam - frameR, hCam - frameR),
                       (255, 0, 255), 2)
 
-        # Kali index finger ka moving mode on ho
+        # this code is for moving of index finger
         if fingers[1] == 1 and fingers[2] == 0:
 
             x3 = np.interp(x1, (frameR, wCam-frameR), (0, wScr))
@@ -53,7 +52,7 @@ while True:
             cv2.circle(img, (x1, y1), 15, (255, 0, 255), cv2.FILLED)
             plocX, plocY = clocX, clocY
 
-        #yaa pr hum check karenge ki index finger and midle finger merge hone prr click ho
+        # Here we are checking that when the index finger and middle finger merge then the click functionality should trigger
 
         if fingers[1] == 1 and fingers[2] == 1:
             length, img, lineInfo = detector.findDistance(8, 12, img)
@@ -62,20 +61,14 @@ while True:
                 cv2.circle(img, (lineInfo[4], lineInfo[5]), 15, (0, 255, 0), cv2.FILLED)
                 autopy.mouse.click()
 
-
-
-
-
-
-
     # _, frame = cap.read()
-    # Ye Code frame rate k liye use hua hai joh 30 fps tak ki frames leta hai
+    # this code fill show the frame rate of video like we are using 30 to 50 fps
     cTime = time.time()
     fps = 1/(cTime-pTime)
     pTime = cTime
     cv2.putText(img, str(int(fps)), (20, 50), cv2.FONT_HERSHEY_PLAIN, 3,
                 (255, 0, 0), 3)
 
- # Ye code display k liye use hua hai
+ # This code is used for display
     cv2.imshow("Image", img)
     cv2.waitKey(1)
